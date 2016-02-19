@@ -1,25 +1,39 @@
 package springmvc.java.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 /*
  * Configuration class application-context.xml
- * or dispatcher-servlet.xml
  */
 @EnableWebMvc
 @Configuration
+@ComponentScan(basePackages="springmvc.java")
+@Import({ApplicationContext.class})
+@PropertySource("classpath:application.properties")
 public class WebConfig extends WebMvcConfigurerAdapter {
-	// more custom rules/beans
 
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-		// index mapping
 		registry.addViewController("/").setViewName("index");
+	}
+	
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+	}
+	
+	public static PropertySourcesPlaceholderConfigurer propertyPlaceholderConfigurer(){
+		return new PropertySourcesPlaceholderConfigurer();
 	}
 
 	@Bean
