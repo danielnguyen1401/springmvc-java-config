@@ -9,8 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jdbc.datasource.init.DatabasePopulator;
+import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -21,7 +25,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import springmvc.java.service.BlogPostService;
 import springmvc.java.service.impl.BlogPostServiceImpl;
 
-@EnableJpaRepositories(basePackages="springmvc.java.dao")
+@EnableJpaRepositories(basePackages = "springmvc.java.dao")
 @EnableTransactionManagement
 @Configuration
 public class ApplicationContext {
@@ -40,9 +44,17 @@ public class ApplicationContext {
 
 		return dataSource;
 	}
-	
+
+	private DatabasePopulator databasePopulator() {
+		ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
+		databasePopulator.setContinueOnError(true);
+		databasePopulator.addScript(new ClassPathResource("test-data.sql"));
+
+		return databasePopulator;
+	}
+
 	@Bean
-	public BlogPostService blogPostService(){
+	public BlogPostService blogPostService() {
 		return new BlogPostServiceImpl();
 	}
 
@@ -50,6 +62,8 @@ public class ApplicationContext {
 	public JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
 		JpaTransactionManager jpaTransactionManager = new JpaTransactionManager();
 		jpaTransactionManager.setEntityManagerFactory(entityManagerFactory);
+
+		DatabasePopulatorUtils.execute(databasePopulator(), dataSource());
 
 		return jpaTransactionManager;
 	}
@@ -67,9 +81,9 @@ public class ApplicationContext {
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean entityManager = new LocalContainerEntityManagerFactoryBean();
 		entityManager.setDataSource(dataSource());
-		
+
 		entityManager.setJpaVendorAdapter(jpaVendorAdapter());
-		
+
 		entityManager.setPackagesToScan("springmvc.java.domain");
 
 		Properties jpaProperties = new Properties();

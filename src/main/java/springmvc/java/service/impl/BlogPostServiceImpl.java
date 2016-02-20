@@ -23,7 +23,7 @@ public class BlogPostServiceImpl implements BlogPostService {
 		LOGGER.debug("BlogPostServiceImpl: savePost is called");
 		blogPost.setPublishDate(new Date());
 		blogPostDAO.save(blogPost);
-
+		
 	}
 
 	@Override
