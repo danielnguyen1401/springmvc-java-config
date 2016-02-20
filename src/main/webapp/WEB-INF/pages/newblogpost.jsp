@@ -1,11 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Welcome</title>
+<title>New Blog Post</title>
 
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
@@ -37,11 +39,32 @@
 	</div>
 	
 	<div class="container">
-		<h1>Java Spring MVC</h1>
-		<p>The sample application provided by Spring MVC JavaConfig</p>
+		<h1>New Blog Post</h1>
+
+		<c:if test="${not empty message }">
+			${message}<br />
+		</c:if>
+		<form action="${pageContext.request.contextPath}/saveBlogPost" method="post">
+			<table style="width:650px" class="table table-striped">
+            <tr>
+                <td>Title</td>
+                <td><input type="text" name="title" required autofocus></td>
+            </tr>
+            <tr>
+                <td>Content</td>
+                <td><textarea style="width:400px" name="content" rows="10" maxlength="4000" required></textarea></td>
+            </tr>
+            <tr>
+                <td>Draft</td>
+                <td><input type="checkbox" name="draft"></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="Save"></td>
+            </tr>
+        </table>
+		</form>
+		
 		<a href="${pageContext.request.contextPath}/displayUsersMySQL">Display users with MySQL</a>
-		<br/>
-		<a href="${pageContext.request.contextPath}/newblogpost.html">New Blog Post</a>
 	</div>
 	
 	<footer>
