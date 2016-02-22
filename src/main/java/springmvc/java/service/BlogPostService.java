@@ -10,7 +10,7 @@ public interface BlogPostService {
 	void saveAsDraft(BlogPost blogPost);
 	void deletePost(BlogPost blogPost);
 	List<BlogPost> listAllBlogPostsByUserAndDraftStatus(User user, boolean draft);
-	List<BlogPost> listAllBlogPostByUserAndTitleLike(User user, String title);
+	List<BlogPost> listAllBlogPostsByUserAndTitleLike(User user, String title);
 	BlogPost findBlogPostById(long id);
 
 }

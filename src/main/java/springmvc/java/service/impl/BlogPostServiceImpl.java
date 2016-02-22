@@ -42,7 +42,7 @@ public class BlogPostServiceImpl implements BlogPostService {
 	}
 
 	@Override
-	public List<BlogPost> listAllBlogPostByUserAndTitleLike(User user, String title) {
+	public List<BlogPost> listAllBlogPostsByUserAndTitleLike(User user, String title) {
 		return blogPostDAO.findAllBlogPostByUserAndTitleContaining(user, title);
 	}
 

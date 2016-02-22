@@ -64,7 +64,7 @@
         </table>
 		</form>
 		
-		<a href="${pageContext.request.contextPath}/displayUsersMySQL">Display users with MySQL</a>
+		<a href="${pageContext.request.contextPath}">Back</a>
 	</div>
 	
 	<footer>

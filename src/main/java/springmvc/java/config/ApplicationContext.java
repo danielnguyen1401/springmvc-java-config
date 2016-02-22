@@ -92,6 +92,7 @@ public class ApplicationContext {
 		entityManager.setJpaProperties(jpaProperties);
 
 		return entityManager;
+		
 	}
 
 	// @Bean

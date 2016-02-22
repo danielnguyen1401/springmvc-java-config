@@ -47,6 +47,21 @@
 		
 		<a href="${pageContext.request.contextPath}">Back</a>
 		
+		<br/>
+		
+		<a href="${pageContext.request.contextPath}/newblogpost.html">Enter a new Blog Post</a>
+		
+		<br/>
+		
+		<form action="${pageContext.request.contextPath}/searchByTitle" method="post">
+			<table>
+				<tr><td>Blog title:</td><td><input name="title" type="text"/></td></tr>
+				<tr><td colspan="2"><input type="submit" value="Search"/></td></tr>
+			</table>
+		</form>
+		<a href="${pageContext.request.contextPath}/draftblogposts">Find draft Blog Post</a>
+		
+		<br/>
 		<c:if test="${not empty blogposts}">
 			<table style="width:650px" class="table table-striped">
 				<c:forEach var="blogpost" items="${blogposts}">
