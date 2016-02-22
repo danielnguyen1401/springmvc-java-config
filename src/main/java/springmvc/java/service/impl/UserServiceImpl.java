@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public User findUserWithBlogPostsByUsename(String username) {
-		return null;
+		return userDao.findUserByUsername(username);
 	}
 
 }

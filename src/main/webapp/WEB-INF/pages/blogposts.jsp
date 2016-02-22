@@ -1,11 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Welcome</title>
+<title>Blog Posts</title>
 
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
@@ -37,13 +39,28 @@
 	</div>
 	
 	<div class="container">
-		<h1>Java Spring MVC</h1>
-		<p>The sample application provided by Spring MVC JavaConfig</p>
-		<a href="${pageContext.request.contextPath}/displayUsersMySQL">Display users with MySQL</a>
-		<br/>
-		<a href="${pageContext.request.contextPath}/newblogpost.html">New Blog Post</a>
-		<br/>
-		<a href="${pageContext.request.contextPath}/blogposts">Blog Posts</a>
+		<h1>Blog Posts</h1>
+
+		<c:if test="${empty blogposts}">
+			No Blog post is found<br />
+		</c:if>
+		
+		<a href="${pageContext.request.contextPath}">Back</a>
+		
+		<c:if test="${not empty blogposts}">
+			<table style="width:650px" class="table table-striped">
+				<c:forEach var="blogpost" items="${blogposts}">
+					<tr><td>Blog Post ID</td><td><c:out value="${blogpost.id}"/></td></tr>
+					<tr><td>Title</td><td><c:out value="${blogpost.title}"/></td></tr>
+					<tr><td>Content</td><td><div style="white-space: pre"><c:out value="${blogpost.content}"/></div></td></tr>
+					<tr><td>Draft</td><td><c:out value="${blogpost.draft}"/></td></tr>
+					<tr><td colspan="2"></td></tr>
+					<tr><td colspan="2"></td></tr>
+				</c:forEach>
+			
+        </table>
+		</c:if>
+		
 	</div>
 	
 	<footer>

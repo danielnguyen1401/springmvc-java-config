@@ -23,14 +23,12 @@ public class BlogPostServiceImpl implements BlogPostService {
 		LOGGER.debug("BlogPostServiceImpl: savePost is called");
 		blogPost.setPublishDate(new Date());
 		blogPostDAO.save(blogPost);
-		
 	}
 
 	@Override
 	public void saveAsDraft(BlogPost blogPost) {
 		blogPost.setDraft(true);
 		blogPostDAO.save(blogPost);
-		
 	}
 
 	@Override
@@ -40,12 +38,12 @@ public class BlogPostServiceImpl implements BlogPostService {
 
 	@Override
 	public List<BlogPost> listAllBlogPostsByUserAndDraftStatus(User user, boolean draft) {
-		return null;
+		return blogPostDAO.findAllBlogPostByUserAndDraft(user, draft);
 	}
 
 	@Override
 	public List<BlogPost> listAllBlogPostByUserAndTitleLike(User user, String title) {
-		return null;
+		return blogPostDAO.findAllBlogPostByUserAndTitleContaining(user, title);
 	}
 
 	@Override
